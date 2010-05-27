@@ -988,8 +988,11 @@ def parse_subcommands(gparser, subcmds):
         console.setLevel(DEBUG)
     # load StarClusterConfig into global options
     try:
-        cfg = config.StarClusterConfig(gopts.CONFIG)
-        cfg.load()
+        if subcmdname=='help':
+            cfg = None
+        else:
+            cfg = config.StarClusterConfig(gopts.CONFIG)
+            cfg.load()
     except exception.ConfigNotFound,e:
         log.error(e.msg)
         e.display_options()
